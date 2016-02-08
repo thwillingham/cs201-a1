@@ -3,18 +3,32 @@
 #include "heap.h"
 #include "node.h"
 #include "linkedList.h"
+#include "stack.h"
 
 int main()
 {
+    
     heap *h = newHeap();
-    int numbers[] = {4645,463,46,762,25,6,234,1,7,8,356,83,234,123};    
     int i;
+    //list *q = newLList();
+
     for (i=0; i<12; i++)
     {
-        insertItem(h,numbers[i]);
+        printf("\nmain: %d\n",i);
+        insertItem(h,i);
+        //node *n = newNode();
+        //setNodeValue(n,i);
+        //enqueue(q,n);
+        
     }
+    for (i=0; i<12; i++)
+    {
+        //printf("%d\n",getNodeValue(dequeue(q)));    
+    }
+
 
     printHeap(h);
 
+    
     return 0;
 }

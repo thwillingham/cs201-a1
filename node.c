@@ -8,11 +8,9 @@ node *newNode()
     if (n==0) { fprintf(stderr,"out of memory"); exit(-1); }
     
     n->value = 0;
-    n->heapParent = NULL;
-    n->heapLeftChild = NULL;
-    n->heapRightChild = NULL;
-    n->listNext = NULL;
-    n->listPrevious = NULL;
+    n->parent = NULL;
+    n->leftChild = NULL;
+    n->rightChild = NULL;
 
     return n;
 }
@@ -30,54 +28,36 @@ int getNodeValue(node *n)
 
 void setNodeLeftChild(node *n, node *leftChild)
 {
-    n->heapLeftChild = leftChild;
+    n->leftChild = leftChild;
     return;
 }
 
 node *getNodeLeftChild(node *n)
 {
-    return n->heapLeftChild;
+    return n->leftChild;
 }
 
 void setNodeRightChild(node *n, node *rightChild)
 {
-    n->heapRightChild = rightChild;
+    n->rightChild = rightChild;
     return;
 }
 
 node *getNodeRightChild(node *n)
 {
-    return n->heapRightChild;
-}
-
-void setNodeListNext(node *n, node *listNext)
-{
-    n->listNext = listNext;
-    return;
-}
-node *getNodeListNext(node *n)
-{
-    return n->listNext;
-}
-
-void setNodeListPrevious(node *n, node *listPrevious)
-{
-    n->listPrevious = listPrevious;
-    return;
-}
-
-node *getNodeListPrevious(node *n)
-{
-    return n->listPrevious;
+    return n->rightChild;
 }
 
 void setNodeParent(node *n, node *parent)
 {
-    n->heapParent = parent;
+    n->parent = parent;
     return;
 }
 
 node *getNodeParent(node *n)
 {
-    return n->heapParent;
+    if (!n)
+    {return NULL;}
+    else{
+        return n->parent;}
 }

@@ -1,22 +1,22 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#include "node.h"
+#include "listNode.h"
 
 typedef struct list list;
 struct list
 {
-    struct node *head;
-    struct node *tail;
+    struct listNode *head;
+    struct listNode *tail;
     int size;
 };
 
-extern void addToHead(list *l, node *n);
-extern node *seeHead(list *l);
-extern node *removeHead(list *l);
-extern void addToTail(list *l, node *n);
-extern node *seeTail(list *l);
-extern node *removeTail(list *l);
+extern void addToHead(list *l, listNode *ln);
+extern listNode *seeHead(list *l);
+extern listNode *removeHead(list *l);
+extern void addToTail(list *l, listNode *ln);
+extern listNode *seeTail(list *l);
+extern listNode *removeTail(list *l);
 extern list *newLList(void);
 extern int listIsNotEmpty(list *l);
 

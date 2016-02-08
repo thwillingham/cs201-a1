@@ -14,61 +14,86 @@ list *newLList(void)
     return l;
 }
 
-void addToHead(list *l, node *n)
-{
-    l->head->listPrevious = n;
-    n->listNext = l->head;
-    n->listPrevious = NULL;
-    l->head = n;
-}
-
-node *seeHead(list *l)
-{
-    return l->head;
-}
-
-node *removeHead(list *l)
-{
-    node *temp = l->head;
-    l->head = temp->listNext;
-    l->head->listPrevious = NULL;
-    temp->listPrevious = NULL;
-    temp->listNext = NULL;
-    
-    return temp;
-}
-
-void addToTail(list *l, node *n)
+void addToHead(list *l, listNode *ln)
 {
     if (!listIsNotEmpty(l))
     {
-        l->head = n;
-        l->tail = n;
+        l->head = ln;
+        l->tail = ln;
         l->size++;
     }else
     {    
-        l->tail->listNext = n;
-        n->listPrevious = l->tail;
-        n->listNext = NULL;
-        l->tail = n;
+        l->head->previous = ln;
+        ln->next = l->head;
+        ln->previous = NULL;
+        l->head = ln;
     };
     return;
 }
 
-node *seeTail(list *l)
+listNode *seeHead(list *l)
+{
+    return l->head;
+}
+
+listNode *removeHead(list *l)
+{
+    listNode *temp = l->head;
+    l->head = temp->next;
+    l->head->previous = NULL;
+    temp->previous = NULL;
+    temp->next = NULL;
+    
+    return temp;
+}
+
+void addToTail(list *l, listNode *ln)
+{
+    if (!listIsNotEmpty(l))
+    {
+        l->head = ln;
+        l->tail = ln;
+        l->size++;
+    }else
+    {    
+        l->tail->next = ln;
+        ln->previous = l->tail;
+        ln->next = NULL;
+        l->tail = ln;
+        l->size++;
+    };
+    return;
+}
+
+listNode *seeTail(list *l)
 {
     return l->tail;
 }
 
-node *removeTail(list *l)
+listNode *removeTail(list *l)
 {
-    node *temp = l->tail;
-    l->tail = temp->listPrevious;
-    l->tail->listNext = NULL;
-    temp->listPrevious = NULL;
-    temp->listNext = NULL;
+    if (seeHead(l) == seeTail(l))
+    {
+    	if (!l->head)
+    	{return NULL;}
+    	else {
+        listNode *ln = seeTail(l);
+        l->size = 0;
+        l->head = NULL;
+        l->tail = NULL;
+        return ln;
+        }
+    }else
+    {   
+        listNode *temp = seeTail(l);
+        l->tail = getListNodePrevious(temp);
+        //l->tail->next = NULL;
+        setListNodeNext(seeTail(l), NULL);
+        temp->previous = NULL;
+        temp->next = NULL;
     
-    return temp;
+        return temp;
+    }
 }
 
 int listIsNotEmpty(list *l)
