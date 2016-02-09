@@ -11,6 +11,7 @@ struct heap
     struct list *queue;
     struct list *stack;
     int size;
+    int type;
 };
 
 extern heap *newHeap(void);
@@ -19,5 +20,8 @@ extern void heapifyUp(heap *h);
 extern void heapifyDown(heap *h);
 extern int heapSize(heap *h);
 extern void printHeap(heap *h);
+extern void heapify(heap *h);
+extern void siftDown(heap *h, node *n);
+extern node *popHeap(heap *h);
 
 #endif

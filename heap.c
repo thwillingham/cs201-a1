@@ -6,6 +6,7 @@
 #include "listNode.h"
 #include "queue.h"
 #include "stack.h"
+#include "helpers.h"
 
 heap *newHeap(void)
 {
@@ -16,6 +17,7 @@ heap *newHeap(void)
     h->queue = newLList();
     h->stack = newLList();
     h->size = 0;
+    h->type = 0;
 }
 
 void insertItem(heap *h, int i)
@@ -32,10 +34,8 @@ void insertItem(heap *h, int i)
     else
     {
         node *temp = pequeue(h->queue);
-        printf("next in queue: %p\n",temp);
         if (!temp->leftChild)
         {
-//             printf("h1");
             temp->leftChild = n;
             n->parent = temp;
             enqueue(h->queue, n);
@@ -43,7 +43,6 @@ void insertItem(heap *h, int i)
             
         }else if (!temp->rightChild)
         {
-            printf("h2");
             temp->rightChild = n;
             n->parent = temp;
             enqueue(h->queue, n);
@@ -51,7 +50,6 @@ void insertItem(heap *h, int i)
             dequeue(h->queue);
         }else
         {
-            printf("h3");
             dequeue(h->queue);
             temp = pequeue(h->queue);
             temp->leftChild = n;
@@ -60,8 +58,6 @@ void insertItem(heap *h, int i)
         }
     }
     h->size++;
-    printf(" current: %p\n",n);
-    printf(" parent: %p\n",n->parent);
     return;
 }
 
@@ -75,52 +71,106 @@ int heapSize(heap *h)
 
 void printHeap(heap *h)
 {
-    node *n = popStack(h->stack);
+    node *n = popHeap(h);
     while (n)
     {
-        printf("%d\n",n->value);
-        n = popStack(h->stack);
+        printf("%d ",getNodeValue(n));
+        n = popHeap(h);
     }
 
 }
 
-void heapify(h)
+void heapify(heap *h)
 {
-    listNode *ln = getListTail(h->stack);
+    listNode *ln = seeTail(h->stack);
     while (ln)
     {
         
-        siftDown(getListNodeValue(ln));
+        siftDown(h, getListNodeValue(ln));
         ln = ln->previous;
     }
 }
 
-void siftDown(n)
+void siftDown(heap *h, node *n)
 {
-        if (!n->left && !n->right)
+    node *current = n;
+    node *leftChild = NULL;
+    node *rightChild = NULL;
+    node *xChild = NULL;
+    while(getNodeLeftChild(current))
+    {
+        leftChild = getNodeLeftChild(current);
+        rightChild = getNodeRightChild(current);
+        xChild = leftChild;
+
+        if (rightChild && compare(h->type, leftChild, rightChild))
+        {
+            xChild = rightChild;
+        }
+
+        if (compare(h->type, current,xChild))
+        {
+            swapNodeValue(current,xChild);
+        }else{
+            break;
+        }
+
+        current = xChild;
+    }
+}
+
+
+
+void sitDown(heap *h, node *n)
+{
+    node *x = NULL;    
+    if (!n->leftChild && !n->rightChild)
         {
             return;
-        }else if (n->left && !n->right)
+        }else if (n->leftChild && !n->rightChild)
         {
-            if (compare(n,n->left)
+            if (compare(h->type,n,n->leftChild))
             {
-               swapValue(n,n->left);
-               siftDown(n->left);
+               swapNodeValue(n,n->leftChild);
+               siftDown(h, n->leftChild);
             }
-        }else if (n->left && n->right)
+        }else if (n->leftChild && n->rightChild)
         {
-            if compare(getNodeValue(n->left),getNodeValue(n->right))
+            if (compare(h->type,n->leftChild,n->rightChild))
             {
-                node *x = n->left;
+                x = n->leftChild;
             }else
             {
-                node *x = n->right;
+                x = n->rightChild;
             }
-            if compare(n, x)
+            if (compare(h->type,n, x))
             {
-                swapValue(n,x);
-                siftDown(x);
+                swapNodeValue(n,x);
+                siftDown(h, x);
             }
         }
 }
 
+node *popHeap(heap *h)
+{
+    node *xNode = popStack(h->stack);
+    if (xNode == h->rootNode)
+    {
+        return xNode;
+    }else if (!xNode)
+    {
+        return NULL;
+    }
+    //int value = getNodeValue(h->rootNode);
+    if (xNode->parent->leftChild == xNode)
+    {
+        xNode->parent->leftChild = NULL;
+    }else if (xNode->parent->rightChild == xNode)
+    {
+        xNode->parent->leftChild = NULL;
+    }
+    swapNodeValue(h->rootNode, xNode);
+    siftDown(h, h->rootNode);
+    return xNode;
+
+}

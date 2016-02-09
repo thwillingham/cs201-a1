@@ -100,3 +100,4 @@ int listIsNotEmpty(list *l)
 {
     return l->size;
 }
+

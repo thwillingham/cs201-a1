@@ -18,6 +18,6 @@ extern void setNodeRightChild(node *n, node *rightChild);
 extern node *getNodeRightChild(node *n);
 extern void setNodeParent(node *n, node *parent);
 extern node *getNodeParent(node *n);
-
+extern void swapNodeValue(node *a, node *b);
 
 #endif

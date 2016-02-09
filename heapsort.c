@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "helpers.h"
 #include "heap.h"
 #include "node.h"
 #include "linkedList.h"
@@ -9,24 +10,11 @@ int main()
 {
     
     heap *h = newHeap();
-    int i;
-    //list *q = newLList();
+    h->type = 1;
+   
+    importFile(h,"./integers");
 
-    for (i=0; i<12; i++)
-    {
-        printf("\nmain: %d\n",i);
-        insertItem(h,i);
-        //node *n = newNode();
-        //setNodeValue(n,i);
-        //enqueue(q,n);
-        
-    }
-    for (i=0; i<12; i++)
-    {
-        //printf("%d\n",getNodeValue(dequeue(q)));    
-    }
-
-
+    heapify(h);
     printHeap(h);
 
     

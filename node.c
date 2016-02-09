@@ -61,3 +61,10 @@ node *getNodeParent(node *n)
     else{
         return n->parent;}
 }
+
+void swapNodeValue(node *a, node *b)
+{
+    int temp = a->value;
+    a->value = b->value;
+    b->value = temp;
+}
