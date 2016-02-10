@@ -10,7 +10,7 @@
 int main(int argc, char **argv)
 {
     
-
+    char* usage = "Usage: ./heapsort [-d descending] [-v info] integers\n";
     char* info = "\n" 
         "##########################################################\n"
         "# Author: Thomas Willingham | twillingham@crimson.ua.edu\n"
@@ -23,21 +23,36 @@ int main(int argc, char **argv)
         "#          to the screen.\n"
         "##########################################################\n"
         "## Explanation of running time:\n"
-        "##    step                          time\n"
-        "##    -----------------------------------------\n"
+        "##    step                        | time\n"
+        "##    ----------------------------+------------\n"
         "##    constructing unordered heap | n\n"
         "##    transforming into heap      | nlogn\n"
         "##    popping from heap           | logn\n"
         "##    other operations            | O(1)\n"
         "##    -----------------------------------------\n"
         "##                           Total: theta(nlogn)\n"
+        "##########################################################\n"
+        "## Table of Running Times for n Integers:\n"
+        "##    n      | time\n"
+        "##    -------+-----------------\n"
+        "##    1      | 0.00121712684631\n"
+        "##    10     | 0.00151705741882\n"
+        "##    100    | 0.00162196159363\n"
+        "##    1000   | 0.00184106826782\n"
+        "##    10000  | 0.0209341049194\n"
+        "##    100000 | 0.202013015747\n"
         "##########################################################\n";
     int i = 0;
     int v = 0;
     int d = 0;
     char* file;
     int f = 0;
-    if (argc == 1){fprintf(stderr, "Error: No parameters specified.\n");return 0;}
+    if (argc == 1)
+    {
+        fprintf(stderr, "Error: No parameters specified.\n");
+        fprintf(stderr, usage);
+        return 0;
+    }
     for (i=1; i<argc; i++)
     {
         if (strcmp(argv[i], "-v") == 0)
@@ -61,6 +76,7 @@ int main(int argc, char **argv)
     } else if (d == 1 && f == 0)
     {
         fprintf(stderr, "Error: Invalid parameter combination.\n");
+        fprintf(stderr, usage);
         return 0;
     }
     if (v)

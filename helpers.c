@@ -25,11 +25,16 @@ void importFile(heap *h, char* fName) // read ints from file into heap
     if ((file = fopen(fName,"r")))
     {
     
-    fscanf(file, "%d", &i);
+    int result = fscanf(file, "%d", &i);
     while (!feof(file))
     {
+        if (result == 0)
+        {
+            fprintf(stderr, "Error: Invalid input in file. Only integers allowed.\n");
+            exit(-1);
+        }
         insertItem(h, i);
-        fscanf(file, "%d", &i);
+        result = fscanf(file, "%d", &i);
     }
     fclose(file);
     } else {
