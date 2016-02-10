@@ -81,7 +81,7 @@ int main(int argc, char **argv)
     }
     if (v)
     {
-        printf(info);
+        printf("%s", info);
     }
     heapify(h);
     printHeap(h);
