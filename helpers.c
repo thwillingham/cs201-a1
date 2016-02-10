@@ -5,7 +5,7 @@
 #include "node.h"
 #include "heap.h"
 
-int compare(int type, node *a, node *b)
+int compare(int type, node *a, node *b) // compare nodes based on heap type (max/min)
 {
 
     if (!type) //min heap
@@ -18,7 +18,7 @@ int compare(int type, node *a, node *b)
     return 0;
 }
 
-void importFile(heap *h, char* fName)
+void importFile(heap *h, char* fName) // read ints from file into heap
 {
     FILE* file = fopen(fName,"r");
     int i=0;

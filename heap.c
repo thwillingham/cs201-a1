@@ -21,7 +21,7 @@ heap *newHeap(void)
     return h;
 }
 
-void insertItem(heap *h, int i)
+void insertItem(heap *h, int i) // inserts item, but doesn't heapify
 {
     node *n = newNode();
     n->value = i;
@@ -34,7 +34,7 @@ void insertItem(heap *h, int i)
     }
     else
     {
-        node *temp = pequeue(h->queue);
+        node *temp = pequeue(h->queue); // get last node added
         if (!temp->leftChild)
         {
             temp->leftChild = n;
@@ -70,7 +70,7 @@ int heapSize(heap *h)
     return h->size;
 }
 
-void printHeap(heap *h)
+void printHeap(heap *h) // pops every item off heap
 {
     node *n = popHeap(h);
     while (n)
@@ -81,7 +81,7 @@ void printHeap(heap *h)
 
 }
 
-void heapify(heap *h)
+void heapify(heap *h) // wrapper function for siftDown; for ensuring whole tree has heap property
 {
     listNode *ln = seeTail(h->stack);
     while (ln)
@@ -92,19 +92,19 @@ void heapify(heap *h)
     }
 }
 
-void siftDown(heap *h, node *n)
+void siftDown(heap *h, node *n) // sifts given node down to its proper place in heap
 {
     node *current = n;
     node *leftChild = NULL;
     node *rightChild = NULL;
-    node *xChild = NULL;
+    node *xChild = NULL; // denotes larger or smaller child depending on type of heap
     while(getNodeLeftChild(current))
     {
         leftChild = getNodeLeftChild(current);
         rightChild = getNodeRightChild(current);
         xChild = leftChild;
 
-        if (rightChild && compare(h->type, leftChild, rightChild))
+        if (rightChild && compare(h->type, leftChild, rightChild)) // right child is more extreme than left child
         {
             xChild = rightChild;
         }
@@ -120,7 +120,7 @@ void siftDown(heap *h, node *n)
     }
 }
 
-node *popHeap(heap *h)
+node *popHeap(heap *h) // pop root and maintain heap
 {
     node *xNode = popStack(h->stack);
     if (xNode == h->rootNode)

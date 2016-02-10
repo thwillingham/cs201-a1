@@ -35,7 +35,8 @@ int main(int argc, char **argv)
     int i = 0;
     int v = 0;
     int d = 0;
-    char* file = "";
+    char* file;
+    int f = 0;
     if (argc == 1){fprintf(stderr, "Error: No parameters specified.\n");return 0;}
     for (i=1; i<argc; i++)
     {
@@ -48,20 +49,16 @@ int main(int argc, char **argv)
         }else
         {
             file = argv[i];
+            f = i;
         }
     }
 
-    //printf("-v: %d\n", v);
-    //printf("-d: %d\n", d);
-    //printf("file: %d\n",file);
-
     heap *h = newHeap();
     h->type = d;
-    
-    if (file)
+    if (f)
     {
-        importFile(h,file);
-    } else if (d && !file)
+        importFile(h,argv[f]);
+    } else if (d == 1 && f == 0)
     {
         fprintf(stderr, "Error: Invalid parameter combination.\n");
         return 0;
