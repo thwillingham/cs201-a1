@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     if (argc == 1)
     {
         fprintf(stderr, "Error: No parameters specified.\n");
-        fprintf(stderr, usage);
+        fprintf(stderr, "%s", usage);
         return 0;
     }
     for (i=1; i<argc; i++)
@@ -76,7 +76,7 @@ int main(int argc, char **argv)
     } else if (d == 1 && f == 0)
     {
         fprintf(stderr, "Error: Invalid parameter combination.\n");
-        fprintf(stderr, usage);
+        fprintf(stderr, "%s", usage);
         return 0;
     }
     if (v)
