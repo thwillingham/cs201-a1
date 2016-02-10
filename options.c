@@ -70,6 +70,7 @@ ProcessOptions(int argc, char **argv)
 
         separateArg = 0;
         argUsed = 0;
+        
 
         if (argv[argIndex][2] == '\0')
             {
@@ -78,6 +79,14 @@ ProcessOptions(int argc, char **argv)
             }
         else
             arg = argv[argIndex]+2;
+        
+        //if (argv[argIndex][1] == "heapsort")
+        //{
+        //    printf("heapsort");
+        //    break;
+        //}
+
+        printf(argv[argIndex[1]]);
 
         switch (argv[argIndex][1])
             {
@@ -111,6 +120,9 @@ ProcessOptions(int argc, char **argv)
             case 'N':
                 Name = strdup(arg);
                 argUsed = 1;
+                break;
+            case 'v':
+                printf(arg);
                 break;
             default:
                 Fatal("option %s not understood\n",argv[argIndex]);

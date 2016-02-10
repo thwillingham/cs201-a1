@@ -15,7 +15,7 @@ int compare(int type, node *a, node *b)
     {
         return a->value<b->value;
     }
-
+    return 0;
 }
 
 void importFile(heap *h, char* fName)

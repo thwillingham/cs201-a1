@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "linkedList.h"
 #include "listNode.h"
+#include "stack.h"
 
 void pushStack(list *l, node *n)
 {

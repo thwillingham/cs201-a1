@@ -18,6 +18,7 @@ heap *newHeap(void)
     h->stack = newLList();
     h->size = 0;
     h->type = 0;
+    return h;
 }
 
 void insertItem(heap *h, int i)
@@ -119,38 +120,6 @@ void siftDown(heap *h, node *n)
     }
 }
 
-
-
-void sitDown(heap *h, node *n)
-{
-    node *x = NULL;    
-    if (!n->leftChild && !n->rightChild)
-        {
-            return;
-        }else if (n->leftChild && !n->rightChild)
-        {
-            if (compare(h->type,n,n->leftChild))
-            {
-               swapNodeValue(n,n->leftChild);
-               siftDown(h, n->leftChild);
-            }
-        }else if (n->leftChild && n->rightChild)
-        {
-            if (compare(h->type,n->leftChild,n->rightChild))
-            {
-                x = n->leftChild;
-            }else
-            {
-                x = n->rightChild;
-            }
-            if (compare(h->type,n, x))
-            {
-                swapNodeValue(n,x);
-                siftDown(h, x);
-            }
-        }
-}
-
 node *popHeap(heap *h)
 {
     node *xNode = popStack(h->stack);
@@ -161,7 +130,6 @@ node *popHeap(heap *h)
     {
         return NULL;
     }
-    //int value = getNodeValue(h->rootNode);
     if (xNode->parent->leftChild == xNode)
     {
         xNode->parent->leftChild = NULL;
