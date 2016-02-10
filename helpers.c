@@ -20,8 +20,11 @@ int compare(int type, node *a, node *b) // compare nodes based on heap type (max
 
 void importFile(heap *h, char* fName) // read ints from file into heap
 {
-    FILE* file = fopen(fName,"r");
-    int i=0;
+    int i = 0;
+    FILE* file = NULL;
+    if ((file = fopen(fName,"r")))
+    {
+    
     fscanf(file, "%d", &i);
     while (!feof(file))
     {
@@ -29,4 +32,7 @@ void importFile(heap *h, char* fName) // read ints from file into heap
         fscanf(file, "%d", &i);
     }
     fclose(file);
+    } else {
+        fprintf(stderr,"Error: File does not exist.");
+    }
 }

@@ -33,3 +33,13 @@ clean:
 run: heapsort
 	echo ./heapsort -d testInts
 	./heapsort -d testInts
+
+test: heapsort
+	./heapsort
+	./heapsort -v
+	./heapsort -v -d
+	./heapsort -v -d testInts
+	./heapsort -d
+	./heapsort -d testInts
+	./heapsort testInts
+	./heapsort foobar
